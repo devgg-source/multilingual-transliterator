@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useRef, useMemo } from 'react';
 import LANGUAGES from '../data/languages';
 
 const TransliteratorContext = createContext(null);
@@ -7,29 +7,44 @@ export function TransliteratorProvider({ children }) {
   // The target language (default: Tamil)
   const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGES[0]);
 
-  // The raw English/Latin input the user is typing
+  // The full English input text (always editable)
   const [inputText, setInputText] = useState('');
 
-  // The final transliterated output text
-  const [outputText, setOutputText] = useState('');
+  // Map of english word → transliterated word (keyed by word index)
+  // e.g. { 0: 'என்ன', 1: 'வேணும்' }
+  const [translatedWords, setTranslatedWords] = useState({});
 
-  // Suggestions for the current word being typed
+  // Suggestions for the most recently transliterated word
   const [suggestions, setSuggestions] = useState([]);
 
-  // The current word fragment being typed (before space)
-  const [currentWord, setCurrentWord] = useState('');
+  // Index of the word suggestions apply to
+  const [activeWordIndex, setActiveWordIndex] = useState(-1);
+
+  // Track which words have already been transliterated (to avoid re-fetching)
+  const translatedSourceRef = useRef({});
+
+  // Compute output text from translatedWords map
+  const outputText = useMemo(() => {
+    const words = inputText.split(/\s+/).filter(Boolean);
+    return words
+      .map((_, i) => translatedWords[i] || '')
+      .filter(Boolean)
+      .join(' ');
+  }, [inputText, translatedWords]);
 
   const value = {
     selectedLanguage,
     setSelectedLanguage,
     inputText,
     setInputText,
-    outputText,
-    setOutputText,
+    translatedWords,
+    setTranslatedWords,
     suggestions,
     setSuggestions,
-    currentWord,
-    setCurrentWord,
+    activeWordIndex,
+    setActiveWordIndex,
+    translatedSourceRef,
+    outputText,
     languages: LANGUAGES,
   };
 

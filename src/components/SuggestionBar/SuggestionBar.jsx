@@ -2,15 +2,22 @@ import { useTransliterator } from '../../context/TransliteratorContext';
 import styles from './SuggestionBar.module.css';
 
 function SuggestionBar() {
-  const { suggestions, setSuggestions, outputText, setOutputText } = useTransliterator();
+  const {
+    suggestions,
+    setSuggestions,
+    activeWordIndex,
+    setTranslatedWords,
+    translatedSourceRef,
+  } = useTransliterator();
 
   if (suggestions.length === 0) return null;
 
   const handlePick = (suggestion) => {
-    // Replace the last word in output with the picked suggestion
-    const words = outputText.split(' ');
-    words[words.length - 1] = suggestion;
-    setOutputText(words.join(' '));
+    // Replace the translated word at the active index with the picked suggestion
+    setTranslatedWords((prev) => ({
+      ...prev,
+      [activeWordIndex]: suggestion,
+    }));
     setSuggestions([]);
   };
 

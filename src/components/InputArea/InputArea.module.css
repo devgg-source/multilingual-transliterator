@@ -24,6 +24,13 @@
   color: #888;
   cursor: pointer;
   transition: all 0.2s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.clearBtnVisible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .clearBtn:hover {
@@ -31,36 +38,25 @@
   color: #e53e3e;
 }
 
-.inputWrapper {
-  display: flex;
-  align-items: center;
+.textarea {
+  width: 100%;
   border: 2px solid #e2e8f0;
   border-radius: 10px;
   background: white;
   padding: 0.75rem 1rem;
   font-size: 1.1rem;
+  font-family: inherit;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 80px;
   transition: border-color 0.2s;
-  min-height: 52px;
 }
 
-.inputWrapper:focus-within {
+.textarea:focus {
+  outline: none;
   border-color: #667eea;
 }
 
-.committed {
-  color: #999;
-  white-space: pre;
-}
-
-.input {
-  border: none;
-  outline: none;
-  font-size: 1.1rem;
-  font-family: inherit;
-  flex: 1;
-  min-width: 120px;
-}
-
-.input::placeholder {
+.textarea::placeholder {
   color: #bbb;
 }
