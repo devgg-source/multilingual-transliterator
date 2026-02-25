@@ -1,0 +1,48 @@
+.outputArea {
+  margin-top: 0.5rem;
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.copyBtn {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  border: 1px solid #667eea;
+  border-radius: 6px;
+  background: white;
+  color: #667eea;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copyBtn:hover {
+  background: #667eea;
+  color: white;
+}
+
+.output {
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fafafa;
+  padding: 0.75rem 1rem;
+  min-height: 52px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.placeholder {
+  color: #ccc;
+  font-size: 1rem;
+}
